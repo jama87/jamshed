@@ -114,3 +114,6 @@ def run_in_background():
 
 # Пример использования
 run_in_background()
+для установка
+pip install -r requirements.txt
+
